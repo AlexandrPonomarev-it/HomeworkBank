@@ -9,5 +9,5 @@ def filter_by_state(list_dict: list, state="EXECUTED") -> list:
 
 
 def sort_by_date(list_dict_date: list, status=True) -> list:
-    """ Принимает список словарей и сортирует по ключу: 'date' """
-    return sorted(list_dict_date, key=lambda x: x['date'], reverse=status)
+    """Принимает список словарей и сортирует по ключу: 'date'"""
+    return sorted(list_dict_date, key=lambda x: x["date"], reverse=status)
