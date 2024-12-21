@@ -35,3 +35,4 @@ def get_date(data_str: str) -> str:
     clear_data = ""
     clear_data += data_str[8:10] + "." + data_str[5:7] + "." + data_str[0:4]
     return clear_data
+print(get_date("32412151234"))
