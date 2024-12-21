@@ -4,12 +4,12 @@ from src.masks import get_mask_account, get_mask_card_number
 
 
 def is_english(list_letter: str) -> bool:
-    """ Проверяет на вхождение английских букв """
+    """Проверяет на вхождение английских букв"""
     return bool(re.search("[a-zA-z]", list_letter))
 
 
 def is_russian(list_letter: str) -> bool:
-    """ Проверяет на вхождение русских букв """
+    """Проверяет на вхождение русских букв"""
     return bool(re.search("[а-яА-Я]", list_letter))
 
 
@@ -35,4 +35,3 @@ def get_date(data_str: str) -> str:
     clear_data = ""
     clear_data += data_str[8:10] + "." + data_str[5:7] + "." + data_str[0:4]
     return clear_data
-print(get_date("32412151234"))
