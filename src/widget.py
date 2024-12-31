@@ -4,12 +4,12 @@ from src.masks import get_mask_account, get_mask_card_number
 
 
 def is_english(list_letter: str) -> bool:
-    """ Проверяет на вхождение английских букв """
+    """Проверяет на вхождение английских букв"""
     return bool(re.search("[a-zA-z]", list_letter))
 
 
 def is_russian(list_letter: str) -> bool:
-    """ Проверяет на вхождение русских букв """
+    """Проверяет на вхождение русских букв"""
     return bool(re.search("[а-яА-Я]", list_letter))
 
 
