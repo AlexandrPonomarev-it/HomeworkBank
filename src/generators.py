@@ -6,8 +6,8 @@ def filter_by_currency(list_dict_transaction: list, currency: str):
             if isinstance(value, dict):
                 for val in value.values():
                     if isinstance(val, dict):
-                        for v in val.values():
-                            if v == currency:
+                        for k, v in val.items():
+                            if k == "code" and v == currency:
                                 yield trans
 
 
@@ -25,7 +25,7 @@ def encoding_a_new_card(range_numbers: int) -> str:
     и возвращает номер карты с принятым числом"""
     zero_card_number = "0000000000000000"
     str_range_numbers = str(range_numbers)
-    new_string = zero_card_number[len(str_range_numbers):] + str_range_numbers
+    new_string = zero_card_number[len(str_range_numbers) :] + str_range_numbers
     return new_string
 
 
