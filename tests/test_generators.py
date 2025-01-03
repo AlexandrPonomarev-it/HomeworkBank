@@ -132,7 +132,10 @@ def test_filter_by_currency(transactions):
             "from": "Visa Classic 6831982476737658",
             "to": "Visa Platinum 8990922113665229"
         }
-
+def test_2_filter_by_currency(transactions):
+    empty_list = []
+    generator = filter_by_currency(empty_list, "USD")
+    assert next(generator) == "Список не найден"
 
 def test_transaction_descriptions(transactions):
     generator = transaction_descriptions(transactions)

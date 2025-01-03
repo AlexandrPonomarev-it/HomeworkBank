@@ -1,14 +1,17 @@
 def filter_by_currency(list_dict_transaction: list, currency: str):
     """Функция принимает список транзакции и возвращает итератор,
     который поочередно выдает транзакции с валютой: 'USD'"""
-    for trans in list_dict_transaction:
-        for value in trans.values():
-            if isinstance(value, dict):
-                for val in value.values():
-                    if isinstance(val, dict):
-                        for k, v in val.items():
-                            if k == "code" and v == currency:
-                                yield trans
+    if not list_dict_transaction:
+        yield "Список не найден"
+    if list_dict_transaction:
+        for trans in list_dict_transaction:
+            for value in trans.values():
+                if isinstance(value, dict):
+                    for val in value.values():
+                        if isinstance(val, dict):
+                            for k, v in val.items():
+                                if k == "code" and v == currency:
+                                    yield trans
 
 
 def transaction_descriptions(list_with_transactions: list):
