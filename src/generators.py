@@ -32,14 +32,14 @@ def encoding_a_new_card(range_numbers: int) -> str:
     return new_string
 
 
-def card_number_generator(a: int, b: int):
+def card_number_generator(start: int, stop: int):
     """Функция принимает диапазон чисел и возвращает
     и генерирует номера карт в заданном диапазоне"""
-    for i in range(a, b + 1):
-        if a <= b:
+    for i in range(start, stop + 1):
+        if start <= stop:
             card_number_with_spaces = (
-                f"{encoding_a_new_card(a)[:4]} {encoding_a_new_card(a)[4:8]} "
-                f"{encoding_a_new_card(a)[8:12]} {encoding_a_new_card(a)[12:17]}"
+                f"{encoding_a_new_card(start)[:4]} {encoding_a_new_card(start)[4:8]} "
+                f"{encoding_a_new_card(start)[8:12]} {encoding_a_new_card(start)[12:17]}"
             )
             yield card_number_with_spaces
-            a += 1
+            start += 1

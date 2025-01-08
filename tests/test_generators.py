@@ -153,13 +153,18 @@ def test_card_number_generator():
     assert next(generator) == "0000 0000 0000 0003"
     assert next(generator) == "0000 0000 0000 0004"
     assert next(generator) == "0000 0000 0000 0005"
-def test_2_card_number_generator():
-    generator = card_number_generator(1234123412341230, 1234123412341234)
-    assert next(generator) == "1234 1234 1234 1230"
-    assert next(generator) == "1234 1234 1234 1231"
-    assert next(generator) == "1234 1234 1234 1232"
-    assert next(generator) == "1234 1234 1234 1233"
-    assert next(generator) == "1234 1234 1234 1234"
+
+
+@pytest.mark.parametrize(
+    "start, stop, result", [(1234123412341230, 1234123412341231, "1234 1234 1234 1230"),
+                                  (1234123412341231, 1234123412341232, "1234 1234 1234 1231"),
+                                  (1234123412341232, 1234123412341233, "1234 1234 1234 1232"),
+                                  (1234123412341233, 1234123412341234, "1234 1234 1234 1233"),
+                                  (1234123412341234, 1234123412341235, "1234 1234 1234 1234")]
+)
+def test_2_card_number_generator(start, stop, result):
+    generator = card_number_generator(start, stop)
+    assert next(generator) == result
 
 
 
