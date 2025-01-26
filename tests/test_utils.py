@@ -1,3 +1,4 @@
+import json
 import unittest
 from unittest.mock import mock_open, patch
 from src.utils import get_financial_transactions, get_transaction_sum
@@ -16,8 +17,61 @@ class TestReadJsonFile(unittest.TestCase):
             self.assertEqual(result, [])
 
 
-def test_get_transaction_sum():
-    assert get_transaction_sum(  {
+
+class TestGetTransactionSumUsd(unittest.TestCase):
+    @patch('requests.get')
+    def test_get_transaction_sum(self, mock_get):
+        # Задаем фиктивный ответ API
+        mock_response = {
+            "rates": {
+                "RUB": 95.0
+            },
+            "base": "USD"
+        }
+        mock_get.return_value.text = json.dumps(mock_response)
+
+        # Вызываем функцию и проверяем результат
+        result = get_transaction_sum({
+    "id": 41428829,
+    "state": "EXECUTED",
+    "date": "2019-07-03T18:35:29.512364",
+    "operationAmount": {
+      "amount": "1",
+      "currency": {
+        "name": "USD",
+        "code": "USD"
+      }}})
+        self.assertEqual(result, 95.0)
+
+
+class TestGetTransactionSumEur(unittest.TestCase):
+    @patch('requests.get')
+    def test_get_transaction_sum(self, mock_get):
+        # Задаем фиктивный ответ API
+        mock_response = {
+            "rates": {
+                "RUB": 100.0
+            },
+            "base": "EUR"
+        }
+        mock_get.return_value.text = json.dumps(mock_response)
+
+        # Вызываем функцию и проверяем результат
+        result = get_transaction_sum({
+    "id": 41428829,
+    "state": "EXECUTED",
+    "date": "2019-07-03T18:35:29.512364",
+    "operationAmount": {
+      "amount": "1",
+      "currency": {
+        "name": "EUR",
+        "code": "EUR"
+      }}})
+        self.assertEqual(result, 100.0)
+
+
+def test_get_transaction_sum_rub():
+    assert get_transaction_sum({
     "id": 441945886,
     "state": "EXECUTED",
     "date": "2019-08-26T10:50:58.294041",
@@ -27,44 +81,30 @@ def test_get_transaction_sum():
         "name": "руб.",
         "code": "RUB"
       }}}) == 31957.58
+
+def test_get_transaction_sum_no_currency():
     assert get_transaction_sum({
-    "id": 41428829,
+    "id": 441945886,
     "state": "EXECUTED",
-    "date": "2019-07-03T18:35:29.512364",
+    "date": "2019-08-26T10:50:58.294041",
     "operationAmount": {
-      "amount": "8221.37",
+      "amount": "31957.58",
       "currency": {
-        "name": "USD",
-        "code": "USD"
-      }}}) == 803320.7
-    assert get_transaction_sum({
-    "id": 41428829,
-    "state": "EXECUTED",
-    "date": "2019-07-03T18:35:29.512364",
-    "operationAmount": {
-      "amount": "5431.23",
-      "currency": {
-        "name": "EUR",
-        "code": "EUR"
-      }}}) == 557420.6
-    assert get_transaction_sum({
-    "id": 41428829,
-    "state": "EXECUTED",
-    "date": "2019-07-03T18:35:29.512364",
-    "operationAmount": {
-      "amount": "1234.32",
-      "currency": {
-        "name": "GBP",
-        "code": "GBP"
+        "name": "руб.",
+        "code": "GBR"
       }}}) == "No transactions were made in this currency"
+
+def test_get_transaction_sum_no_code():
     assert get_transaction_sum({
-    "id": 41428829,
+    "id": 441945886,
     "state": "EXECUTED",
-    "date": "2019-07-03T18:35:29.512364",
+    "date": "2019-08-26T10:50:58.294041",
     "operationAmount": {
-      "amount": "1234.32",
+      "amount": "31957.58",
       "currency": {
-        "name": "GBP",
-        "cod": "GBP"
+        "name": "руб.",
+        "cod": "GBR"
       }}}) == "Transaction missing"
-    assert get_transaction_sum({"sdfasdf"}) == "Unable to determine the exchange rate of the specified currency"
+
+def test_get_transaction_sum_no_type():
+    assert get_transaction_sum([{}]) == "Unable to determine the exchange rate of the specified currency"

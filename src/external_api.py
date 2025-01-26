@@ -14,7 +14,7 @@ def currency_conversion_function_eur() -> Any:
     """
     Функция запрашивает и возвращает данные о курсе валюты EUR по отношению к RUB
     """
-    api_url = "https://api.apilayer.com/fixer/latest?symbols=RUB&base=EUR"
+    api_url = "https://api.apilayer.com/exchangerates_data/latest?symbols=RUB&base=EUR"
     headers = {"apikey": api_key}
 
     response = requests.get(api_url, headers=headers)
@@ -28,7 +28,7 @@ def currency_conversion_function_usd() -> Any:
     """
     Функция запрашивает и возвращает данные о курсе валюты USD по отношению к RUB
     """
-    api_url = "https://api.apilayer.com/fixer/latest?symbols=RUB&base=USD"
+    api_url = "https://api.apilayer.com/exchangerates_data/latest?symbols=RUB&base=USD"
     headers = {"apikey": api_key}
 
     response = requests.get(api_url, headers=headers)
@@ -36,5 +36,3 @@ def currency_conversion_function_usd() -> Any:
     dict_result = json.loads(result)
 
     return dict_result["rates"]["RUB"]
-
-print(currency_conversion_function_usd())
