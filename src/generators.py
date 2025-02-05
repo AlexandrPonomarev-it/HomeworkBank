@@ -1,3 +1,4 @@
+
 def filter_by_currency(list_dict_transaction: list, currency: str):
     """Функция принимает список транзакции и возвращает итератор,
     который поочередно выдает транзакции с валютой: 'USD'"""
@@ -33,8 +34,7 @@ def encoding_a_new_card(range_numbers: int) -> str:
 
 
 def card_number_generator(start: int, stop: int):
-    """Функция принимает диапазон чисел и возвращает
-    и генерирует номера карт в заданном диапазоне"""
+    """Функция принимает диапазон чисел и генерирует номера карт в заданном диапазоне"""
     for i in range(start, stop + 1):
         if start <= stop:
             card_number_with_spaces = (
