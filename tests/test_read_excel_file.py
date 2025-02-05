@@ -8,6 +8,7 @@ from src.open_csv_excel_file import read_excel_file
 
 class TestReadExcelFile(unittest.TestCase):
     def test_valid_data(self):
+        """ Проверка нормальных условий работы функции """
         mock_data = pd.DataFrame({
             'id': [1],
             'state': ['EXECUTED'],
@@ -25,11 +26,13 @@ class TestReadExcelFile(unittest.TestCase):
             self.assertEqual(result[0]['id'], 1)
 
     def test_file_not_found(self):
+        """ Проверка работы функции с отсутствующим файлом """
         with patch('pandas.read_excel', side_effect=FileNotFoundError):
             result = read_excel_file('dummy.xlsx')
             self.assertEqual(result, "Файл не найден")
 
     def test_invalid_data(self):
+        """ Проверка работы функции с некорректными значениями в файле """
         with patch('pandas.read_excel', side_effect=ValueError):
             result = read_excel_file('dummy.xlsx')
             self.assertEqual(result, "Дынные в файле отсутствуют или не соответствуют формату")

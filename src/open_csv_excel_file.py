@@ -8,7 +8,8 @@ path_to_excel_file = "../transactions_excel.xlsx"
 
 
 def read_csv_file(csv_file: Any) -> Any:
-    """Функция для считывания финансовых операций из CSV"""
+    """Функция для считывания финансовых операций из CSV, которая возвращает
+    список транзакций"""
     try:
         with open(csv_file) as file:
             reader = csv.DictReader(file, delimiter=";")
@@ -18,7 +19,8 @@ def read_csv_file(csv_file: Any) -> Any:
 
 
 def read_excel_file(excel_file: Any) -> Any:
-    """Функция для считывания финансовых операций из excel"""
+    """Функция для считывания финансовых операций из excel, которая возвращает
+    список транзакций"""
     try:
         df_excel = pd.read_excel(excel_file)
         list_transaction_excel = list(to_dict(df_excel, orient="records"))
