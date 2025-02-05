@@ -33,4 +33,4 @@ def my_function(x: int, y: int):
     return x / y
 
 my_function(1, 2)
-my_function(1, '2')
+my_function(1, 0)
