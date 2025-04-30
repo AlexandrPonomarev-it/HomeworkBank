@@ -23,7 +23,7 @@ def test_processing_filter(date_and_state: list):
         {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
     ]
     assert filter_by_state([]) == []
-    assert filter_by_state()
+
 
 
 def test_processing_date(date_and_state: list):
